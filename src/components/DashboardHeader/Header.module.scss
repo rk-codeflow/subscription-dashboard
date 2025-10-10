@@ -1,0 +1,39 @@
+.wrapper {
+  background-color: white;
+  padding: 1rem 3.5rem;
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .icon {
+      background-color: #2463eb;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      width: 50px;
+      font-size: 19px;
+      border-radius: 10px;
+    }
+
+    .content {
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+      }
+
+      p {
+        font-size: 14px;
+        color: #65758b;
+      }
+    }
+  }
+}
+
+.line {
+  height: 1px;
+  background-color: #d7dfea;
+}
