@@ -1,6 +1,6 @@
 import cardStyles from "./Card.module.scss";
 interface CardProps {
-  value: number;
+  value: number | string;
   title: string;
   icon: React.ReactNode;
   color: string;

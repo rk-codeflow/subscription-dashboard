@@ -2,20 +2,39 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-  background-color: white;
+  padding: 1rem 3.5rem;
 
   .card {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: white;
     border-radius: 8px;
     padding: 1rem;
+    height: 130px;
+    border: 1px solid #ddd;
+
+    &:hover {
+      transition: box-shadow 400ms ease-in-out;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+        0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 14px;
+      color: #65758b;
+    }
 
     .icon {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 40px;
+      height: 50px;
       width: 50px;
       font-size: 19px;
       border-radius: 10px;
