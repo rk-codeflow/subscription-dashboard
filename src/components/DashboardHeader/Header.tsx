@@ -3,7 +3,7 @@ import { FiUserCheck } from "react-icons/fi";
 const Header = () => {
   return (
     <>
-      <div className={styles.wrapper}>
+      <div className={styles.headerWrapper}>
         <div className={styles.header}>
           <div className={styles.icon}>
             <FiUserCheck />
@@ -14,7 +14,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className={styles.line}></div>
     </>
   );
 };

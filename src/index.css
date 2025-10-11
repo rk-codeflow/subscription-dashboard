@@ -6,6 +6,11 @@
   padding: 0;
 }
 
+#root {
+  display: grid;
+  row-gap: 2.5rem;
+}
+
 body {
   background-color: #f6f7f9;
   font-family: "Inter", sans-serif;

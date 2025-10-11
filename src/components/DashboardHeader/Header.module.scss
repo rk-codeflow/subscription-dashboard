@@ -1,6 +1,7 @@
-.wrapper {
+.headerWrapper {
   background-color: white;
   padding: 1rem 3.5rem;
+  border-bottom: 1px solid #d7dfea;
 
   .header {
     display: flex;
@@ -31,9 +32,4 @@
       }
     }
   }
-}
-
-.line {
-  height: 1px;
-  background-color: #d7dfea;
 }
