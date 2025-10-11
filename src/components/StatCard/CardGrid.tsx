@@ -1,6 +1,7 @@
 import { FiUserCheck } from "react-icons/fi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
+import { FaRegStar } from "react-icons/fa6";
 import Card from "./Card";
 import styles from "./Card.module.scss";
 import userSubscriptions from "../../data/subscriptions.json";
@@ -16,6 +17,8 @@ const expiredSubscriptions = userSubscriptions.filter((sub) => {
   const date = new Date(sub.expires_on);
   return date < new Date();
 }).length;
+
+// get most popular package
 
 const CardGrid = () => {
   return (
@@ -46,10 +49,10 @@ const CardGrid = () => {
 
       <Card
         title="Most popular package"
-        value={5000}
-        icon={<FiUserCheck />}
-        color="#2463eb"
-        bgColor="#e1e8f9"
+        value={10}
+        icon={<FaRegStar />}
+        color="#AF57DC"
+        bgColor="#dbbdeaff"
       />
     </div>
   );
