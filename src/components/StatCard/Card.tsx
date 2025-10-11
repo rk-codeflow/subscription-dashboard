@@ -1,11 +1,6 @@
+import type { CardProps } from "../../interface/interface";
 import cardStyles from "./Card.module.scss";
-interface CardProps {
-  value: number | string;
-  title: string;
-  icon: React.ReactNode;
-  color: string;
-  bgColor: string;
-}
+
 const Card = ({ title, value, icon, color, bgColor }: CardProps) => {
   return (
     <div className={cardStyles.card}>

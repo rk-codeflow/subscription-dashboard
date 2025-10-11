@@ -3,30 +3,30 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
 import Card from "./Card";
 import styles from "./Card.module.scss";
-import userSubscriptions from "../../data/subscriptions.json";
 import usersData from "../../data/users.json";
+import type { CardGridProps } from "../../interface/interface";
 
-// get active subscriptions
-const activeSubscriptions = userSubscriptions.filter((sub) => {
-  const date = new Date(sub.expires_on);
-  return date > new Date();
-}).length;
+const CardGrid = ({ subscriptions }: CardGridProps) => {
+  // get active subscriptions
+  const activeSubscriptions = subscriptions.filter((sub) => {
+    const date = new Date(sub.expires_on ?? "");
+    return date > new Date();
+  }).length;
 
-// get expired subscriptions
-const expiredSubscriptions = userSubscriptions.filter((sub) => {
-  const date = new Date(sub.expires_on);
-  return date < new Date();
-}).length;
+  // get expired subscriptions
+  const expiredSubscriptions = subscriptions.filter((sub) => {
+    const date = new Date(sub.expires_on ?? "");
+    return date < new Date();
+  }).length;
 
-// get active users
-const activeUsers = usersData.filter((user) => user.active === "1").length;
+  // get active users
+  const activeUsers = usersData.filter((user) => user.active === "1").length;
 
-const CardGrid = () => {
   return (
     <div className={styles.cardWrapper}>
       <Card
         title="Total subscribers"
-        value={userSubscriptions.length}
+        value={subscriptions.length}
         icon={<FiUserCheck />}
         color="#2463eb"
         bgColor="#e1e8f9"
