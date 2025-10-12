@@ -5,8 +5,23 @@ export interface SubscriptionProps {
   expires_on: string;
 }
 
+export interface User {
+  id: number;
+  first_name: string;
+  middle_name?: string;
+  last_name: string;
+  username: string;
+  email: string;
+  password: string;
+  active: string;
+  address: string;
+  country: string;
+  join_date: string;
+}
+
 export interface CardGridProps {
   subscriptions: SubscriptionProps[];
+  users: User[];
 }
 
 export interface CardProps {
