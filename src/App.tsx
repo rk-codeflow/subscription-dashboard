@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "./components/DashboardHeader/Header";
 import CardGrid from "./components/StatCard/CardGrid";
 import type { SubscriptionProps, User } from "./interface/interface";
+import Chart from "./components/Chart/Chart";
 
 function App() {
   const [subLoading, setSubLoading] = useState(true);
@@ -31,7 +32,6 @@ function App() {
     try {
       const res = await fetch("/data/users.json");
       const data = await res.json();
-      console.log({ data });
       setUsers(data);
     } catch (error) {
       console.log("Error loading data", error);
@@ -54,6 +54,7 @@ function App() {
       ) : (
         <CardGrid subscriptions={subscription} users={users} />
       )}
+      <Chart subscriptions={subscription} users={users} />
     </>
   );
 }

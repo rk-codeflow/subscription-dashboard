@@ -31,3 +31,9 @@ export interface CardProps {
   color: string;
   bgColor: string;
 }
+
+export interface PlanDistProps {
+  title: string;
+  value: number;
+  bgColor: string;
+}
