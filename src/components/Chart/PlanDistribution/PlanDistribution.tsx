@@ -1,9 +1,6 @@
-import type { SubscriptionProps } from "../../../interface/interface";
+import type { PlanDistProps } from "../../../interface/interface";
 import styles from "../Chart.module.scss";
 
-interface PlanDistProps {
-  subData: SubscriptionProps[];
-}
 const PlanDistribution = ({ subData }: PlanDistProps) => {
   const subsData = subData.reduce((acc, sub) => {
     const plan = sub.package;
@@ -17,11 +14,11 @@ const PlanDistribution = ({ subData }: PlanDistProps) => {
   }));
 
   return (
-    <div className={styles.planWrapper}>
+    <div className={styles.chart}>
       <h3>Plan Distribution</h3>
       {/* <GraphWithText /> */}
 
-      <div className={styles.planValue}>
+      <div className={styles.chartValue}>
         {chartData.map((data) => {
           const val = chartData.map((d) => d.value);
           const maxValue = Math.max(...val);
@@ -61,5 +58,3 @@ const PlanDistribution = ({ subData }: PlanDistProps) => {
 };
 
 export default PlanDistribution;
-
-// width and color should be dynamic

@@ -5,13 +5,13 @@
   padding: 1rem 3.5rem;
 }
 
-.planWrapper {
+.chart {
   background-color: white;
   border: 1px solid #ddd;
   padding: 1rem;
   border-radius: 8px;
 
-  .planValue {
+  .chartValue {
     display: grid;
     row-gap: 1.5rem;
   }
@@ -26,6 +26,25 @@
     justify-content: space-between;
     margin-bottom: 0.5rem;
   }
+
+  .country {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .flex {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .circle {
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      background-color: tomato;
+      display: block;
+    }
+  }
 }
 
 .barWrapper {
@@ -35,9 +54,7 @@
   border-radius: 8px;
 
   .bar {
-    width: 10%;
     height: 100%;
-    background-color: #2ecc71;
     border-radius: 8px;
   }
 }

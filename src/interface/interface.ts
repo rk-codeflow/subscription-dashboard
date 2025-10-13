@@ -33,7 +33,9 @@ export interface CardProps {
 }
 
 export interface PlanDistProps {
-  title: string;
-  value: number;
-  bgColor: string;
+  subData: SubscriptionProps[];
+}
+
+export interface CountryProps {
+  users: User[];
 }
