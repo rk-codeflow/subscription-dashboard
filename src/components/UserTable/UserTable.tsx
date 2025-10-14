@@ -100,11 +100,14 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
           <table>
             <thead>
               <tr>
-                {header.map((item) => (
-                  <th key={item.id}>
-                    {item.title} {item.icon}
-                  </th>
-                ))}
+                <th>
+                  Full Name <LuArrowUpDown />
+                </th>
+                <th>Email</th>
+                <th>Package</th>
+                <th>Expires On</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
 
