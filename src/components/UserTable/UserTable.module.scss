@@ -8,9 +8,23 @@
     border: 1px solid #ddd;
     padding: 1rem;
     border-radius: 8px;
+    display: grid;
+    gap: 1rem;
 
-    h3 {
-      margin-bottom: 1rem;
+    .search {
+      position: relative;
+
+      svg {
+        position: absolute;
+        top: 31%;
+        left: 10px;
+      }
+      input {
+        border-radius: 8px;
+        height: 40px;
+        width: 80%;
+        padding-left: 32px;
+      }
     }
 
     table {

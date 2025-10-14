@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { CardGridProps, MergedDataProps } from "../../interface/interface";
 import styles from "./UserTable.module.scss";
 import { LuArrowUpDown } from "react-icons/lu";
 import { IoCloseOutline } from "react-icons/io5";
+import { IoSearchOutline } from "react-icons/io5";
+import { useDebounce } from "../../hooks/useDebounce";
 
 const header = [
   {
@@ -33,6 +35,9 @@ const header = [
   },
 ];
 const UserTable = ({ users, subscriptions }: CardGridProps) => {
+  const [selectedUser, setSelectedUser] = useState<MergedDataProps | null>(
+    null
+  );
   const mergedData: MergedDataProps[] = [];
   subscriptions.forEach((sub) => {
     const user = users.find((user) => Number(user.id) === Number(sub.user_id));
@@ -47,19 +52,50 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
     });
   });
 
-  const [selectedUser, setSelectedUser] = useState<MergedDataProps | null>(
-    null
-  );
-
   const handleUserView = (user: MergedDataProps) => {
     setSelectedUser(user);
   };
 
+  // filter logic
+  const [inputQuery, setInputQuery] = useState("");
+  const search = useDebounce(inputQuery, 300);
+
+  const searchText = search.toLowerCase().trim();
+  console.log("searchText:", searchText);
+
+  const filteredData = useMemo(() => {
+    const searchText = search.toLowerCase().trim();
+    if (searchText === "") return mergedData;
+    return mergedData.filter((user) => {
+      return (
+        user.name.toLowerCase().includes(searchText) ||
+        user.email.toLowerCase().includes(searchText) ||
+        user.package.toLowerCase().includes(searchText) ||
+        user.status.toLowerCase().includes(searchText)
+      );
+    });
+  }, [search, mergedData]);
+
+  console.log("Original data count:", mergedData.length);
+  console.log("Filtered data count:", filteredData.length);
+  console.log("filter dta", filteredData);
+  console.log("Search query:", inputQuery);
+  console.log("Debounced search:", search);
   return (
     <>
       <div className={styles.userTable}>
         <div className={styles.tableLayout}>
           <h3>Subscribers</h3>
+
+          <div className={styles.search}>
+            <IoSearchOutline fontSize={15} />
+            <input
+              type="text"
+              value={inputQuery}
+              onChange={(e) => setInputQuery(e.target.value)}
+              placeholder="Search by name, email, package and status"
+            />
+          </div>
 
           <table>
             <thead>
@@ -73,23 +109,31 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
             </thead>
 
             <tbody>
-              {mergedData.map((user) => {
-                return (
-                  <tr key={user.id}>
-                    <td style={{ width: "15%" }}>{user.name}</td>
-                    <td style={{ width: "35%" }}>{user.email}</td>
-                    <td style={{ width: "10%" }}>{user.package}</td>
-                    <td style={{ width: "20%" }}>{user.expiresOn}</td>
-                    <td style={{ width: "10%" }}>{user.status}</td>
-                    <td
-                      style={{ width: "10%" }}
-                      onClick={() => handleUserView(user)}
-                    >
-                      <button>View</button>
-                    </td>
-                  </tr>
-                );
-              })}
+              {filteredData.length === 0 ? (
+                <tr>
+                  <td colSpan={header.length} style={{ textAlign: "center" }}>
+                    No data found
+                  </td>
+                </tr>
+              ) : (
+                filteredData.map((user) => {
+                  return (
+                    <tr key={user.id}>
+                      <td style={{ width: "15%" }}>{user.name}</td>
+                      <td style={{ width: "35%" }}>{user.email}</td>
+                      <td style={{ width: "10%" }}>{user.package}</td>
+                      <td style={{ width: "20%" }}>{user.expiresOn}</td>
+                      <td style={{ width: "10%" }}>{user.status}</td>
+                      <td
+                        style={{ width: "10%" }}
+                        onClick={() => handleUserView(user)}
+                      >
+                        <button>View</button>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>
