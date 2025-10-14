@@ -123,12 +123,26 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
                       <td style={{ width: "35%" }}>{user.email}</td>
                       <td style={{ width: "10%" }}>{user.package}</td>
                       <td style={{ width: "20%" }}>{user.expiresOn}</td>
-                      <td style={{ width: "10%" }}>{user.status}</td>
+                      <td style={{ width: "10%" }}>
+                        <div
+                          style={{
+                            borderRadius: "8px",
+                            padding: "4px 8px",
+                            maxWidth: "fit-content",
+                            background:
+                              user.status === "Active" ? "#ECF9EF" : "#FFEDEC",
+                            color:
+                              user.status === "Active" ? "#21c55d" : "#F36160",
+                          }}
+                        >
+                          {user.status}
+                        </div>
+                      </td>
                       <td
                         style={{ width: "10%" }}
                         onClick={() => handleUserView(user)}
                       >
-                        <button>View</button>
+                        <button className={styles.btn}>View</button>
                       </td>
                     </tr>
                   );

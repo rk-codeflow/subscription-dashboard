@@ -30,11 +30,17 @@
     table {
       width: 100%;
       text-align: left;
+      border-collapse: collapse;
 
       tr {
+        &:hover {
+          background-color: rgba(225, 231, 239, 0.5);
+        }
         th {
           font-size: 15px;
           font-weight: 500;
+          border-bottom: 1px solid rgb(215, 223, 234);
+          padding: 16px;
 
           &:first-child {
             display: flex;
@@ -46,7 +52,20 @@
 
         td {
           font-size: 14px;
+          border-bottom: 1px solid rgb(215, 223, 234);
+          padding: 16px;
         }
+      }
+
+      .btn {
+        outline: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 8px;
+        min-width: 100px;
+        background-color: #2463eb;
+        color: white;
       }
     }
   }
