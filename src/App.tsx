@@ -3,6 +3,7 @@ import Header from "./components/DashboardHeader/Header";
 import CardGrid from "./components/StatCard/CardGrid";
 import type { SubscriptionProps, User } from "./interface/interface";
 import Chart from "./components/Chart/Chart";
+import UserTable from "./components/UserTable/UserTable";
 
 function App() {
   const [subLoading, setSubLoading] = useState(true);
@@ -55,6 +56,7 @@ function App() {
         <CardGrid subscriptions={subscription} users={users} />
       )}
       <Chart subscriptions={subscription} users={users} />
+      <UserTable subscriptions={subscription} users={users} />
     </>
   );
 }
