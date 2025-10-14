@@ -60,9 +60,6 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
   const [inputQuery, setInputQuery] = useState("");
   const search = useDebounce(inputQuery, 300);
 
-  const searchText = search.toLowerCase().trim();
-  console.log("searchText:", searchText);
-
   const filteredData = useMemo(() => {
     const searchText = search.toLowerCase().trim();
     if (searchText === "") return mergedData;
@@ -76,11 +73,6 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
     });
   }, [search, mergedData]);
 
-  console.log("Original data count:", mergedData.length);
-  console.log("Filtered data count:", filteredData.length);
-  console.log("filter dta", filteredData);
-  console.log("Search query:", inputQuery);
-  console.log("Debounced search:", search);
   return (
     <>
       <div className={styles.userTable}>
