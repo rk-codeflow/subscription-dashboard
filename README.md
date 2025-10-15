@@ -1,5 +1,7 @@
 # Live Demo
 
+**Demo Link:** https://subscription-dashboard.netlify.app/
+
 ## Setup
 
 This project was setup using **Vite**.
