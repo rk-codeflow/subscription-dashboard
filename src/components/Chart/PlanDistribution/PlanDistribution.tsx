@@ -16,7 +16,6 @@ const PlanDistribution = ({ subData }: PlanDistProps) => {
   return (
     <div className={styles.chart}>
       <h3>Plan Distribution</h3>
-      {/* <GraphWithText /> */}
 
       <div className={styles.chartValue}>
         {chartData.map((data) => {
