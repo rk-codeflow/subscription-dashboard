@@ -1,44 +1,28 @@
 import { useMemo, useState } from "react";
-import type { CardGridProps, MergedDataProps } from "../../interface/interface";
+import type { CardGridProps } from "../../interface/interface";
 import styles from "./UserTable.module.scss";
 import { LuArrowUpDown } from "react-icons/lu";
 import { IoCloseOutline } from "react-icons/io5";
 import { IoSearchOutline } from "react-icons/io5";
 import { useDebounce } from "../../hooks/useDebounce";
 
-const header = [
-  {
-    id: 1,
-    title: "Name",
-    icon: <LuArrowUpDown />,
-  },
-  {
-    id: 2,
-    title: "Email",
-  },
-  {
-    id: 3,
-    title: "Package",
-  },
-  {
-    id: 4,
-    title: "Expires On",
-  },
-  {
-    id: 5,
-    title: "Status",
-  },
-  {
-    id: 6,
-    title: "Action",
-  },
-];
-
 const UserTable = ({ users, subscriptions }: CardGridProps) => {
   const [selectedUser, setSelectedUser] = useState<{
     user: any;
     subscription: any;
   } | null>(null);
+
+  const [inputQuery, setInputQuery] = useState("");
+
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
+  const handleSortByName = () => {
+    if (sortOrder === "asc") {
+      setSortOrder("desc");
+    } else {
+      setSortOrder("asc");
+    }
+  };
 
   // Enhanced users with subscription data
   const enhancedUsers = useMemo(() => {
@@ -59,23 +43,33 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
     });
   }, [users, subscriptions]);
 
-  const [inputQuery, setInputQuery] = useState("");
   const search = useDebounce(inputQuery, 300);
 
-  const filteredUsers = useMemo(() => {
+  const filteredAndSorted = useMemo(() => {
     const searchText = search.toLowerCase().trim();
 
-    if (!searchText) return enhancedUsers;
-
-    return enhancedUsers.filter((user) => {
+    // Filtered the users
+    let filteredUsers = enhancedUsers.filter((user) => {
+      if (!searchText) return true;
       return (
         user.fullName.toLowerCase().includes(searchText) ||
         user.email.toLowerCase().includes(searchText) ||
-        user.package.toLowerCase().includes(searchText) ||
-        user.status.toLowerCase().includes(searchText)
+        user.package.toLowerCase().includes(searchText)
       );
     });
-  }, [enhancedUsers, search]);
+
+    // Sorted the users
+    filteredUsers = [...filteredUsers].sort((a, b) => {
+      const nameA = a.fullName.toLowerCase();
+      const nameB = b.fullName.toLowerCase();
+
+      if (nameA < nameB) return sortOrder === "asc" ? -1 : 1;
+      if (nameA > nameB) return sortOrder === "asc" ? 1 : -1;
+      return 0;
+    });
+
+    return filteredUsers;
+  }, [enhancedUsers, search, sortOrder]);
 
   const handleUserView = (user: any) => {
     setSelectedUser({
@@ -96,7 +90,7 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
               type="text"
               value={inputQuery}
               onChange={(e) => setInputQuery(e.target.value)}
-              placeholder="Search by name, email, package and status"
+              placeholder="Search by name, email and package"
             />
           </div>
 
@@ -104,7 +98,7 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
             <table>
               <thead>
                 <tr>
-                  <th>
+                  <th onClick={handleSortByName}>
                     Full Name <LuArrowUpDown />
                   </th>
                   <th>Email</th>
@@ -116,14 +110,14 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
               </thead>
 
               <tbody>
-                {filteredUsers.length === 0 ? (
+                {filteredAndSorted.length === 0 ? (
                   <tr>
-                    <td colSpan={header.length} style={{ textAlign: "center" }}>
+                    <td colSpan={6} style={{ textAlign: "center" }}>
                       No data found
                     </td>
                   </tr>
                 ) : (
-                  filteredUsers.map((user) => {
+                  filteredAndSorted.map((user) => {
                     return (
                       <tr key={user.id}>
                         <td style={{ width: "15%" }}>{user.fullName}</td>
