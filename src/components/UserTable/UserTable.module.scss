@@ -24,6 +24,7 @@
         height: 40px;
         width: 100%;
         padding-left: 32px;
+        border: 2px solid #2463eb;
       }
     }
 
@@ -69,6 +70,33 @@
           min-width: 100px;
           background-color: #2463eb;
           color: white;
+        }
+      }
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: flex-end;
+      column-gap: 1rem;
+
+      button {
+        outline: none;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 8px;
+        min-width: 100px;
+        background-color: white;
+        transition: all 0.5s ease-in-out;
+
+        &:hover:not(:disabled) {
+          color: #2463eb;
+          border: 1px solid #2463eb;
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
         }
       }
     }

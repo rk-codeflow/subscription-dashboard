@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { CardGridProps } from "../../interface/interface";
 import styles from "./UserTable.module.scss";
 import { LuArrowUpDown } from "react-icons/lu";
@@ -7,14 +7,18 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useDebounce } from "../../hooks/useDebounce";
 
 const UserTable = ({ users, subscriptions }: CardGridProps) => {
+  const [inputQuery, setInputQuery] = useState("");
+  const search = useDebounce(inputQuery, 300);
+
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
   const [selectedUser, setSelectedUser] = useState<{
     user: any;
     subscription: any;
   } | null>(null);
 
-  const [inputQuery, setInputQuery] = useState("");
-
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const handleSortByName = () => {
     if (sortOrder === "asc") {
@@ -22,6 +26,13 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
     } else {
       setSortOrder("asc");
     }
+  };
+
+  const handleUserView = (user: any) => {
+    setSelectedUser({
+      user: user,
+      subscription: user.subscription,
+    });
   };
 
   // Enhanced users with subscription data
@@ -42,8 +53,6 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
       };
     });
   }, [users, subscriptions]);
-
-  const search = useDebounce(inputQuery, 300);
 
   const filteredAndSorted = useMemo(() => {
     const searchText = search.toLowerCase().trim();
@@ -71,12 +80,31 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
     return filteredUsers;
   }, [enhancedUsers, search, sortOrder]);
 
-  const handleUserView = (user: any) => {
-    setSelectedUser({
-      user: user,
-      subscription: user.subscription,
-    });
+  // Pagination feature
+  const totalPages = Math.ceil(filteredAndSorted.length / itemsPerPage);
+
+  const paginatedUsers = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredAndSorted.slice(startIndex, endIndex);
+  }, [filteredAndSorted, currentPage]);
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  // Reset page when search/filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, filteredAndSorted]);
 
   return (
     <>
@@ -110,14 +138,14 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
               </thead>
 
               <tbody>
-                {filteredAndSorted.length === 0 ? (
+                {paginatedUsers.length === 0 ? (
                   <tr>
                     <td colSpan={6} style={{ textAlign: "center" }}>
                       No data found
                     </td>
                   </tr>
                 ) : (
-                  filteredAndSorted.map((user) => {
+                  paginatedUsers.map((user) => {
                     return (
                       <tr key={user.id}>
                         <td style={{ width: "15%" }}>{user.fullName}</td>
@@ -157,6 +185,16 @@ const UserTable = ({ users, subscriptions }: CardGridProps) => {
                 )}
               </tbody>
             </table>
+          </div>
+
+          {/* Pagination buttons */}
+          <div className={styles.pagination}>
+            <button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </button>
+            <button onClick={nextPage} disabled={currentPage === totalPages}>
+              Next
+            </button>
           </div>
         </div>
       </div>
