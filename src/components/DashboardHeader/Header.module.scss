@@ -3,6 +3,10 @@
   padding: 1rem 3.5rem;
   border-bottom: 1px solid #d7dfea;
 
+  @media screen and (max-width: 768px) {
+    padding: 1rem;
+  }
+
   .header {
     display: flex;
     align-items: center;
