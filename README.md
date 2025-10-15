@@ -1,73 +1,31 @@
-# React + TypeScript + Vite
+# Live Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Setup
 
-Currently, two official plugins are available:
+This project was setup using **Vite**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Brain storming
 
-## React Compiler
+When I first got this task, I spent some time thinking about where to start. I decided to focus on the UI first. I checked out Dribbble and other design websites, and also used some AI tools to get ideas for the layout and look.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Once the UI was finalized, I created the components and started fetching data, mapping it to the UI.
 
-## Expanding the ESLint configuration
+## Concepts I learned
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Even though I had some prior knowledge, this project helped me understand several concepts more deeply, including: **reduce**, **useMemo**, **Pagination**, **Sorting** etc.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+It was a good chance to practice and strengthen these skills.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## What could have been better
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+There’s still room for optimization. For example, I ended up passing the same props like _Users_ and _Subscriptions_ multiple times. I had planned to refactor the code and use **Zustand** for state management, but personal commitments delayed it. I plan to revisit this in the future.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Challenge I faced
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+One of the trickiest parts was working on the subscription table. Initially, I merged two JSON files, _user.json_ and _subscription.json_, and mapped the data along with user details.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+But when I started implementing the **filter functionality**, React caused some unexpected issues, and the filter didn’t work correctly. I spent a whole day trying to fix it without success.
+
+In the end, I removed the merged data approach and used a different method, keeping users and subscriptions in separate states, which worked smoothly.
+
+## THANK YOU

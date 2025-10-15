@@ -39,12 +39,3 @@ export interface PlanDistProps {
 export interface CountryProps {
   users: User[];
 }
-
-export interface MergedDataProps {
-  id: number;
-  name: string;
-  email: string;
-  package: string;
-  expiresOn: string;
-  status: string;
-}
