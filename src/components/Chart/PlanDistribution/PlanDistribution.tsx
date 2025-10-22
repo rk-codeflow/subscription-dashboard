@@ -39,8 +39,8 @@ const PlanDistribution = () => {
               ? "#F43F5E"
               : "#ffafcc";
           return (
-            <div>
-              <div className={styles.flex} key={data.title}>
+            <div key={data.title}>
+              <div className={styles.flex}>
                 <p>{data.title}</p>
                 <p>{data.value}</p>
               </div>
