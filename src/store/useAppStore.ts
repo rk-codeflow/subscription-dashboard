@@ -29,7 +29,7 @@ export const useAppStore = create<AppState>((set) => ({
 
   fetchSubscriptions: async () => {
     try {
-      const res = await fetch("/data/users.json");
+      const res = await fetch("/data/subscriptions.json");
       const data = await res.json();
       set({ subscriptions: data });
     } catch (error) {

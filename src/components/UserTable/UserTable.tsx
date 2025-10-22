@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import type { CardGridProps } from "../../interface/interface";
 import styles from "./UserTable.module.scss";
 import { LuArrowUpDown } from "react-icons/lu";
 import { IoCloseOutline } from "react-icons/io5";
 import { IoSearchOutline } from "react-icons/io5";
 import { useDebounce } from "../../hooks/useDebounce";
+import { useAppStore } from "../../store/useAppStore";
 
-const UserTable = ({ users, subscriptions }: CardGridProps) => {
+const UserTable = () => {
+  const { users, subscriptions } = useAppStore();
   const [inputQuery, setInputQuery] = useState("");
   const search = useDebounce(inputQuery, 300);
 

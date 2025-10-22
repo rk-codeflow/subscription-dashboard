@@ -1,7 +1,8 @@
 import styles from "../Chart.module.scss";
-import type { CountryProps } from "../../../interface/interface";
+import { useAppStore } from "../../../store/useAppStore";
 
-const Country = ({ users }: CountryProps) => {
+const Country = () => {
+  const { users } = useAppStore();
   const colors = [
     "#2463eb",
     "#21C55D",

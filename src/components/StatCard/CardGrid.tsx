@@ -3,9 +3,10 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
 import Card from "./Card";
 import styles from "./Card.module.scss";
-import type { CardGridProps } from "../../interface/interface";
+import { useAppStore } from "../../store/useAppStore";
 
-const CardGrid = ({ subscriptions, users }: CardGridProps) => {
+const CardGrid = () => {
+  const { subscriptions, users } = useAppStore();
   // get active subscriptions
   const activeSubscriptions = subscriptions.filter((sub) => {
     const date = new Date(sub.expires_on ?? "");

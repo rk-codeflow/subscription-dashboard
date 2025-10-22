@@ -1,8 +1,10 @@
-import type { PlanDistProps } from "../../../interface/interface";
+import { useAppStore } from "../../../store/useAppStore";
 import styles from "../Chart.module.scss";
 
-const PlanDistribution = ({ subData }: PlanDistProps) => {
-  const subsData = subData.reduce((acc, sub) => {
+const PlanDistribution = () => {
+  const { subscriptions } = useAppStore();
+
+  const subsData = subscriptions.reduce((acc, sub) => {
     const plan = sub.package;
     acc[plan] = (acc[plan] || 0) + 1;
     return acc;
